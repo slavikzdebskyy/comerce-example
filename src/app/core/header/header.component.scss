@@ -1,0 +1,121 @@
+$headerHieght: 60px;
+
+header {
+  background-color: #ffffff;
+  width: 100%;
+  height: $headerHieght;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  z-index: 3;
+}
+
+.side-nav-btn {
+  height: $headerHieght;
+  width: 80px;
+  color: #6F6F6F;
+  transition: 0.3s all;
+  border: none;
+  border-right: 1px solid #E0E0E0;
+  outline: none;
+  cursor: pointer;
+
+  &:hover {
+    color: #6164C1;
+  }
+}
+
+
+.menu-item {
+  width: 140px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 16px;
+  transition: 0.3s all;
+
+  &:hover {
+    background: none;
+    color: #e94e02;
+  }
+}
+
+.icon-logout {
+  font-size: 21px;
+  margin-right: 10px;
+}
+
+.icon-side-nav-btn {
+  font-size: 32px;
+}
+
+.logo-container {
+  height: $headerHieght;
+  background-color: #337ab7;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .logo {
+    min-width: 120px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    h2 {
+      color: #fff;
+      font-size: 1.5em;
+      line-height: 1.2em;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    h4 {
+      color: #F8F8F8;
+      font-size: .7em;
+      text-align: center;
+      letter-spacing: 7px;
+      margin: 0;
+    }
+  }
+}
+
+
+.options-panel {
+  min-width: 120px;
+  height: $headerHieght;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.divider {
+  height: $headerHieght;
+  border-right: 1px solid #E0E0E0;
+  margin: 0 5px;
+}
+
+.user-container {
+  height: $headerHieght;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.user-name {
+  font-size: 1em;
+  color: #DD6777;
+  line-height: 1em;
+  font-weight: 700;
+  padding: 0 10px 0 20px;
+}
+
+.basket {
+  margin: 0 45px 0 30px;
+  padding: 0 2px;
+  cursor: pointer;
+}
+
+
