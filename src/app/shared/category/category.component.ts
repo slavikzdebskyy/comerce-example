@@ -1,8 +1,9 @@
 import {Component, OnInit} from '@angular/core';
 import {CrudService} from '../../services/crud.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {pluck, switchMap} from 'rxjs/operators';
+import {pluck, switchMap, tap} from 'rxjs/operators';
 import {Car} from '../../interfaces/car.interface';
+import {QueryParams} from '../../interfaces/query-params';
 
 @Component({
   selector: 'app-category',
@@ -18,13 +19,15 @@ export class CategoryComponent {
     private route: ActivatedRoute,
     private router: Router,
   ) {
-    this.route.paramMap
+    this.route.queryParamMap
       .pipe(
-        pluck('params', 'cat'),
-        switchMap((param) => this.crudService.getFilteredCars(param)),
+        pluck('params'),
+        switchMap((params: QueryParams) => this.crudService.getFilteredCars(params)),
       )
       .subscribe(
-        (cars: Car[]) =>  this.cars = cars,
+        (cars: Car[]) =>  {
+          this.cars = cars;
+        },
       );
 
 

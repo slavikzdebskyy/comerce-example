@@ -1,9 +1,10 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import {filter, map} from 'rxjs/operators';
+import {filter, map } from 'rxjs/operators';
 import {Observable} from 'rxjs';
 import {environment} from '../../environments/environment';
 import {Car} from '../interfaces/car.interface';
+import {QueryParams} from '../interfaces/query-params';
 
 @Injectable({
   providedIn: 'root'
@@ -11,11 +12,8 @@ import {Car} from '../interfaces/car.interface';
 export class CrudService {
 
   private readonly URL: string = environment.apiUrl;
-  private readonly ALL_CARS: string = 'All cars';
 
-
-  constructor(private http: HttpClient) {
-  }
+  constructor(private http: HttpClient) {}
 
   public get cars(): Observable<Car[]> {
     return this.http.get(`${this.URL}/cars`).pipe(
@@ -36,15 +34,24 @@ export class CrudService {
       .pipe(
         map((cars: Car[]) => cars.map((car: Car) => car.brand)),
         map((brands: string[]) => [...new Set(brands)]),
-        map((brands: string[]) => brands.sort((a: string, b: string) => a > b ? 1 : -1)),
-        map((brandsNames: string[]) => [ this.ALL_CARS, ...brandsNames ]),
+        map((brands: string[]) => brands.sort((a: string, b: string) => a > b ? 1 : -1))
       );
   }
 
-  public getFilteredCars(brand): Observable<Car[]> {
+  public getFilteredCars(params: QueryParams): Observable<Car[]> {
     return this.http.get(`${this.URL}/cars`)
       .pipe(
-        map((cars: Car[]) => cars.filter((car: Car) => brand === this.ALL_CARS || car.brand === brand))
+        map((cars: Car[]) => {
+          if (params.hasOwnProperty('available')) {
+            return cars.filter((car: Car) => params.available ? car.available : !car.available);
+          }
+
+          if (params.hasOwnProperty('brand')) {
+            return cars.filter((car: Car) => car.brand === params.brand);
+          }
+
+          return cars;
+        })
       );
   }
 
